@@ -1,5 +1,7 @@
+#imported time to calculate the time taken to sort array
 import time
- 
+
+#this is merge sort code 
 def merge(array, l, m, r): 
     n1 = m - l + 1
     n2 = r- m 
