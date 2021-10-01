@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+class Solution {
+  public:
+  
+  vector<ll> makeSubset(vector<ll> a, int k)
+  {
+      vector<ll> ans;
+      
+      ll snum=1;
+      
+      while(snum<pow(2,a.size()))
+      {
+          ll prod=1;
+          for(int i=0;i<a.size();i++)
+              if(snum &(1<<i))      prod*=a[i];
+          
+        if(prod<=k)
+            ans.push_back(prod);
+            
+            snum++;
+      }
+      
+      return ans;
+  }
+  
+    int numOfSubsets(int arr[], int n, int k) {
+        
+       vector<ll> a(arr , arr+n/2) , b(arr+n/2 , arr+n);
+       
+       vector<ll> x = makeSubset(a,k);
+      
+       vector<ll> y = makeSubset(b,k);
+        
+        ll ans=x.size()+y.size();
+        
+        sort(x.begin(),x.end());
+        
+        sort(y.begin(),y.end());
+        
+        for(int i=0;i<x.size();i++)
+        {
+            ans+=upper_bound(y.begin(),y.end(),(long double)(k/x[i])) - y.begin();
+        }
+        return ans;
+    }
+};
+
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N,K;
+        cin>>N;
+        
+        int arr[N];
+        for(int i=0; i<N; i++)
+            cin>>arr[i];
+        cin>>K;
+
+        Solution ob;
+        cout << ob.numOfSubsets(arr,N,K) << endl;
+    }
+    return 0;
+}  
